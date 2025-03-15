@@ -1,4 +1,27 @@
 body {
-  background: black;
-  color: white;
+  background: D9C49A;
+  color: black;
 }
+
+.custom-btn {
+  background-color: #5C350C;
+  color: #ffffff;
+  border-color: #5C350C;
+}
+
+.custom-btn:hover {
+  background-color: #4A2A09;
+  border-color: #4A2A09;
+}
+
+.custom-button {
+  background-color: #5C350C;
+  color: #ffffff;
+  border: 1px solid #5C350C;
+}
+
+.custom-button:hover {
+  background-color: #4a2a0a; /* Slightly darker brown on hover */
+  border-color: #4a2a0a;
+}
+
