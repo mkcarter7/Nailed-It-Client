@@ -68,7 +68,7 @@ const updateProject = (payload) =>
 
 const deleteProject = (id) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects/${id}`, {
+    fetch(`${endpoint}/projects/${id}.json`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +76,12 @@ const deleteProject = (id) =>
     })
       .then((response) => {
         if (response.ok) {
-          return response.status === 204 ? resolve({}) : response.json().then(resolve);
+          return response.status === 204
+            ? resolve({})
+            : response
+                .json()
+                .then(resolve)
+                .catch(() => resolve({}));
         }
         return reject(new Error(`Failed to delete project: ${response.status}`));
       })
