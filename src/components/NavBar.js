@@ -7,33 +7,26 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#5C350C' }} variant="dark">
       <Container>
-        <Link passHref href="/" className="navbar-brand" style={{ color: '#FFFFFF' }}>
-          Nailed In
+        <Link href="/" className="navbar-brand" style={{ color: '#D9C49A' }}>
+          Nailed It
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link className="nav-link" href="/" style={{ color: '#FFFFFF' }}>
+            <Link href="/" className="nav-link" style={{ color: '#FFFFFF' }}>
               Rooms
             </Link>
-            <Link className="nav-link" href="/materials" style={{ color: '#FFFFFF' }}>
+            <Link href="/materials" className="nav-link" style={{ color: '#FFFFFF' }}>
               Materials
             </Link>
-            <Link className="nav-link" href="/tools" style={{ color: '#FFFFFF' }}>
+            <Link href="/tools" className="nav-link" style={{ color: '#FFFFFF' }}>
               Tools
             </Link>
-            <Link className="nav-link" href="/projects" style={{ color: '#FFFFFF' }}>
+            <Link href="/projects" className="nav-link" style={{ color: '#FFFFFF' }}>
               Projects
             </Link>
           </Nav>
-          <Button
-            onClick={signOut}
-            style={{
-              backgroundColor: '#5C350C',
-              borderColor: '#5C350C',
-              color: '#FFFFFF', // Text color changed to white
-            }}
-          >
+          <Button onClick={signOut} className="custom-btn">
             Sign Out
           </Button>
         </Navbar.Collapse>
