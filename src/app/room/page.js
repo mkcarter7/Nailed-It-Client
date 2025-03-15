@@ -1,33 +1,33 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getRooms } from '@/api/roomData';
+import RoomCard from '@/components/form/RoomCard';
 
-export default function RoomsPage() {
+export default function RoomList() {
   const [rooms, setRooms] = useState([]);
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      const res = await fetch('/api/rooms');
-      const data = await res.json();
-      setRooms(data);
-    };
+  const loadRooms = () => {
+    getRooms().then((data) => {
+      const formattedRooms = data.map((room) => ({
+        id: room.pk,
+        name: room.fields.name,
+        description: room.fields.description,
+        uid: room.fields.uid,
+      }));
+      setRooms(formattedRooms);
+    });
+  };
 
-    fetchRooms();
+  useEffect(() => {
+    loadRooms();
   }, []);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Rooms</h1>
-      <ul>
-        {rooms.map((room) => (
-          <li key={room.id}>
-            <a href={`/room/${room.id}`}>{room.name}</a>
-          </li>
-        ))}
-      </ul>
-      <a href="/room/new" className="btn">
-        + Add Room
-      </a>
+    <div className="d-flex flex-wrap">
+      {rooms.map((room) => (
+        <RoomCard key={room.id} roomObj={room} onUpdate={loadRooms} />
+      ))}
     </div>
   );
 }
