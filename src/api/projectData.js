@@ -4,71 +4,81 @@ const endpoint = clientCredentials.databaseURL;
 
 const getProjects = () =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects`, {
+    fetch(`${endpoint}/api/projects/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          resolve(Object.values(data));
-        } else {
-          console.log('No data');
-          resolve([]);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch projects: ${response.status}`);
         }
+        return response.json();
       })
+      .then((data) => resolve(data))
       .catch(reject);
   });
 
 const getSingleProject = (id) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects/${id}.json`, {
+    fetch(`${endpoint}/api/projects/${id}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch project: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => resolve(data))
       .catch(reject);
   });
 
 const createProject = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects.json`, {
+    fetch(`${endpoint}/api/projects/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        resolve(data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to create project: ${response.status}`);
+        }
+        return response.json();
       })
+      .then((data) => resolve(data))
       .catch(reject);
   });
 
 const updateProject = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects/${payload.id}`, {
+    fetch(`${endpoint}/api/projects/${payload.id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     })
-      .then((response) => response)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to update project: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => resolve(data))
       .catch(reject);
   });
 
 const deleteProject = (id) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/projects/${id}.json`, {
+    fetch(`${endpoint}/api/projects/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -76,18 +86,12 @@ const deleteProject = (id) =>
     })
       .then((response) => {
         if (response.ok) {
-          return response.status === 204
-            ? resolve({})
-            : response
-                .json()
-                .then(resolve)
-                .catch(() => resolve({}));
+          resolve({});
+        } else {
+          reject(new Error(`Failed to delete project: ${response.status}`));
         }
-        return reject(new Error(`Failed to delete project: ${response.status}`));
       })
       .catch(reject);
   });
 
 export { getProjects, createProject, updateProject, getSingleProject, deleteProject };
-
-// api calls

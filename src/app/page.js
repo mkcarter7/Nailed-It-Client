@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/utils/context/authContext';
+import RoomsPage from './rooms/page';
 
 function Home() {
   const { user } = useAuth();
@@ -18,6 +19,10 @@ function Home() {
       }}
     >
       <h1 style={{ color: '#5C350C' }}>Hello {user.displayName}!</h1>
+      <br />
+      <h3 style={{ color: '#FFFFFF' }}>ROOMS</h3>
+      <br />
+      <RoomsPage />
     </div>
   );
 }

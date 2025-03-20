@@ -37,7 +37,7 @@ const getSingleRoom = (id) =>
 
 const createRoom = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/rooms.json`, {
+    fetch(`${endpoint}/rooms`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
