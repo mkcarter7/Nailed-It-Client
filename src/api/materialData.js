@@ -11,20 +11,13 @@ const getMaterials = () =>
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          resolve(Object.values(data));
-        } else {
-          console.log('No data');
-          resolve([]);
-        }
-      })
+      .then((data) => resolve(data))
       .catch(reject);
   });
 
 const getSingleMaterial = (id) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/materials/${id}.json`, {
+    fetch(`${endpoint}/materials/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +30,7 @@ const getSingleMaterial = (id) =>
 
 const createMaterial = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/materials.json`, {
+    fetch(`${endpoint}/materials`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,10 +38,7 @@ const createMaterial = (payload) =>
       body: JSON.stringify(payload),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        resolve(data);
-      })
+      .then((data) => resolve(data))
       .catch(reject);
   });
 
@@ -61,7 +51,7 @@ const updateMaterial = (payload) =>
       },
       body: JSON.stringify(payload),
     })
-      .then((response) => response)
+      .then((response) => response.json())
       .then((data) => resolve(data))
       .catch(reject);
   });
@@ -76,13 +66,16 @@ const deleteMaterial = (id) =>
     })
       .then((response) => {
         if (response.ok) {
-          return response.status === 204 ? resolve({}) : response.json().then(resolve);
+          resolve({});
+          return null;
         }
-        return reject(new Error(`Failed to delete material: ${response.status}`));
+        return response.json().then((data) => reject(new Error(data.message)));
       })
-      .catch(reject);
+      .catch((error) => {
+        reject(error);
+        return null;
+      });
   });
+console.log('Database URL:', endpoint);
 
 export { getMaterials, createMaterial, updateMaterial, getSingleMaterial, deleteMaterial };
-
-// api calls

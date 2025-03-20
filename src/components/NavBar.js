@@ -8,12 +8,12 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#5C350C' }} variant="dark">
       <Container>
         <Link href="/" className="navbar-brand" style={{ color: '#D9C49A' }}>
-          Nailed It
+          Nailed It Dashboard
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link href="/" className="nav-link" style={{ color: '#FFFFFF' }}>
+            <Link href="/rooms" className="nav-link" style={{ color: '#FFFFFF' }}>
               Rooms
             </Link>
             <Link href="/materials" className="nav-link" style={{ color: '#FFFFFF' }}>
