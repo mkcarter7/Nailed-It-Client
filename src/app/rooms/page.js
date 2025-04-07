@@ -16,7 +16,14 @@ export default function RoomsPage() {
           <div key={room.id} className="col-6 col-md-3 mb-4">
             <Link href={`/rooms/${room.id}`}>
               <div className="card">
-                <Image src={room.image} alt={room.name} width={300} height={200} className="card-img-top" style={{ objectFit: 'cover', cursor: 'pointer' }} />
+                <Image
+                  src={room.image}
+                  alt={room.name}
+                  width={300} // Set width
+                  height={200} // Set height (both width and height are set)
+                  className="card-img-top"
+                  style={{ objectFit: 'cover', cursor: 'pointer', width: '100%', height: 'auto' }} // Maintain aspect ratio
+                />
                 <div className="card-body">
                   <h5 className="card-title text-center">{room.name}</h5>
                 </div>
